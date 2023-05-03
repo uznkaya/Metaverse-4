@@ -634,6 +634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846855210}
   - component: {fileID: 846855209}
+  - component: {fileID: 846855211}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -670,6 +671,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846855211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846855208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc27a5798850834888bd4072ae2ece1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 0}
+  delayTimer: 3
 --- !u!1 &1560338099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,6 +1040,9 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   jumpSound: {fileID: 8300000, guid: 5da6f4f1daeeb3b41bab5815633d44f7, type: 3}
   landSound: {fileID: 8300000, guid: d9ae7af6eeda1f343b2dae92affbda6f, type: 3}
+  deadByEnemySound: {fileID: 8300000, guid: a7f6983c8280cbd4daca017c62edbb9b, type: 3}
+  deadByFallSound: {fileID: 8300000, guid: f3038856ed60d054e84c31b4f05a0415, type: 3}
+  attackEnemySound: {fileID: 8300000, guid: 5d2300dbceb20a14eb7dfb5d40e6a293, type: 3}
 --- !u!4 &1925588988
 Transform:
   m_ObjectHideFlags: 0
@@ -1368,7 +1386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122276828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.31, y: 2.68, z: 0}
+  m_LocalPosition: {x: -0.31, y: 2.25, z: 0}
   m_LocalScale: {x: 3, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

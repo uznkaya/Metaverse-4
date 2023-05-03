@@ -9,11 +9,15 @@ public class Movement : MonoBehaviour
     public float moveSpeed;
     [SerializeField] float playerYBoundry;
     LevelManager levelManager;
+    SoundManager soundManager;
+    Delay delay;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         levelManager = GameObject.Find("Level Manager").GetComponent<LevelManager>();
+        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
+        delay = GameObject.Find("Level Manager").GetComponent<Delay>();
     }
     void Update()
     {
@@ -42,11 +46,9 @@ public class Movement : MonoBehaviour
     {
         if(transform.position.y < playerYBoundry)
         {
+            delay.StartDelayTime();
             Destroy(gameObject);
-            levelManager.RespawnPlayer();
-        }
+            soundManager.DeadByFallSound();        }
     }
-
-
-    
+   
 }

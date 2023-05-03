@@ -8,7 +8,6 @@ public class TriggerScript : MonoBehaviour
     [SerializeField] Transform spawnPos;
     bool moveEnemy = false;
 
-
     private void FixedUpdate()
     {
         MoveEnemy();

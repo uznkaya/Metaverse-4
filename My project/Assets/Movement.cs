@@ -48,7 +48,8 @@ public class Movement : MonoBehaviour
         {
             delay.StartDelayTime();
             Destroy(gameObject);
-            soundManager.DeadByFallSound();        }
+            soundManager.DeadByFallSound();
+        }
     }
    
 }

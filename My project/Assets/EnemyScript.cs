@@ -12,11 +12,13 @@ public class EnemyScript : MonoBehaviour
     Delay delay;
     bool isAttacking;
     Canvas canvas;
+    PlayerHealth playerHealth;
     private void Start()
     {
         soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
         canvas = GameObject.Find("UI Manager").GetComponent<Canvas>();
+        playerHealth = GameObject.Find("Level Manager").GetComponent<PlayerHealth>();
     }
     private void FixedUpdate()
     {
@@ -46,11 +48,13 @@ public class EnemyScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Game Over.");
-            canvas.enabled = true;
-            delay.StartDelayTime();
             soundManager.DeadByEnemySound();
             Destroy(collision.gameObject);
+            playerHealth.Lives();
+            if (delay.delayTime == true)
+            {
+                delay.StartDelayTime();
+            }
         }
     }
 }

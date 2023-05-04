@@ -6,6 +6,7 @@ public class Delay : MonoBehaviour
 {
     LevelManager levelManager;
     [SerializeField] float delayTimer;
+    [SerializeField] public bool delayTime = true;
     private void Start()
     {
         levelManager = GetComponent<LevelManager>();

@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
     LevelManager levelManager;
     SoundManager soundManager;
     Delay delay;
+    Canvas canvas;
+    PlayerHealth playerHealth;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,6 +20,8 @@ public class Movement : MonoBehaviour
         levelManager = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
+        canvas = GameObject.Find("UI Manager").GetComponent<Canvas>();
+        playerHealth = GameObject.Find("Level Manager").GetComponent<PlayerHealth>();    
     }
     void Update()
     {
@@ -46,9 +50,15 @@ public class Movement : MonoBehaviour
     {
         if(transform.position.y < playerYBoundry)
         {
-            delay.StartDelayTime();
-            Destroy(gameObject);
             soundManager.DeadByFallSound();
+            Destroy(gameObject);
+            playerHealth.Lives();
+            if (delay.delayTime == true)
+            {
+                delay.StartDelayTime();
+            }   
+            
+            
         }
     }
    

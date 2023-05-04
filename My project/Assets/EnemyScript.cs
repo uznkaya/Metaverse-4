@@ -11,10 +11,12 @@ public class EnemyScript : MonoBehaviour
     SoundManager soundManager;
     Delay delay;
     bool isAttacking;
+    Canvas canvas;
     private void Start()
     {
         soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
+        canvas = GameObject.Find("UI Manager").GetComponent<Canvas>();
     }
     private void FixedUpdate()
     {
@@ -45,6 +47,7 @@ public class EnemyScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Game Over.");
+            canvas.enabled = true;
             delay.StartDelayTime();
             soundManager.DeadByEnemySound();
             Destroy(collision.gameObject);

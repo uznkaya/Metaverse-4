@@ -20,13 +20,13 @@ public class EnemyScript : MonoBehaviour
         canvas = GameObject.Find("UI Manager").GetComponent<Canvas>();
         playerHealth = GameObject.Find("Level Manager").GetComponent<PlayerHealth>();
     }
-    private void FixedUpdate()
-    {
-        EnemyAttack();  
-    }
     private void Update()
     {
         EnemyDestroyer();
+    }
+    private void FixedUpdate()
+    {
+        EnemyAttack();
     }
     void EnemyDestroyer()
     {

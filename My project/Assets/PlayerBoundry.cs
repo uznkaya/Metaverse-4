@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBoundry : MonoBehaviour
+
+    // Bu script karakterimizin sag ve sol taraftan oyun ekranindan cikmasini engelliyor. Asagida Update icerisinde bulunan if kosullarimiz su sekilde calisiyor. Eger karakterin pozisyonu bizim verdigimiz sinirlari gecmeye calisiyor ise scriptin bagli olan GameObjectin pozisyonunu bizim verdigimiz sekilde ayarla diyoruz.
 {
     [SerializeField] float horizontalBoundry;
     private void Update()

@@ -8,33 +8,34 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public float moveSpeed;
     [SerializeField] float playerYBoundry;
-    LevelManager levelManager;
     SoundManager soundManager;
     Delay delay;
-    Canvas canvas;
     PlayerHealth playerHealth;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        levelManager = GameObject.Find("Level Manager").GetComponent<LevelManager>();
         soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
-        canvas = GameObject.Find("UI Manager").GetComponent<Canvas>();
         playerHealth = GameObject.Find("Level Manager").GetComponent<PlayerHealth>();    
     }
+
+    // Surekli olarak karakterimiz hareket edecegi icin veya ne zaman asagiya duserek olecegini bilemedigimiz icin bu iki metodu Update icerisinde calistiriyoruz.
     void Update()
     {
         MovementAction();
         PlayerDestroyer();
     }
 
+    // Karakterimizin hareket etmesini saglayan metod. Once saga veya sola gitme duruma bagli olarak horizontalMove degiskenine -1 veya +1 atiyoruz. Bunu kontrol etmek icin ise Input.GetAxis("Horizontal") ile sagliyoruz. Horizontal yazmamizin sebebi su Unity bizim icin kolaylik saglamis. A veya sol ok basma durumunda -1, D veya sag ok basma durumunda +1 degeri donduruyor. Bizde bu duruma gore rigidBody2D ye velecotiy hiz vererek hareket etmesini sagliyoruz. Daha sonrasinda ise karakterimiz hangi yone bakmasi gerekiyor ise o yone dogru Flipleme (dondurme) islemini gerceklestiriyoruz.
     void MovementAction()
     {
         float horizontalMove = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(horizontalMove * moveSpeed, rb.velocity.y);
         SpriteFlip(horizontalMove);
     }
+
+    // Karakterimizin sahip oldugu spriteRenderer icerisinde karakterimizi otomatik dondurmemizi saglayan .flipX metodu bulunuyor. Karakterimizin sola dogru gidiyorsa .flipX cevirerek karakterin donmesini sagliyoruz. Eger saga gidiyorsa donmesini iptal ediyoruz. SpriteFlip metodu karakterin hareket ettigi yone dogru bakmasini saglayan metod.
     void SpriteFlip(float horizontalMove)
     {
         if (horizontalMove > 0)
@@ -46,6 +47,8 @@ public class Movement : MonoBehaviour
             spriteRenderer.flipX = true;
         }
     }
+
+    // Karakterimiz asagiya duserek olebilir. PlayerDestroyer metodunda bu olayi gerceklestiriyoruz.
     void PlayerDestroyer()
     {
         if(transform.position.y < playerYBoundry)
@@ -56,9 +59,7 @@ public class Movement : MonoBehaviour
             if (delay.delayTime == true)
             {
                 delay.StartDelayTime();
-            }   
-            
-            
+            }                        
         }
     }
    

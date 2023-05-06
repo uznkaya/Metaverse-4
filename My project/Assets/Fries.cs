@@ -11,6 +11,7 @@ public class Fries : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Fries'in triggerina carpan(giren) seyin tagi "player" ise once fries'i yok et daha sonrasinda ise LevelManager scripti icerisindeki .FriesSpawner metodu ile yeni bir Fries spawnla(olustur) 
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);

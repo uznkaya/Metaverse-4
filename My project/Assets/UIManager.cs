@@ -10,9 +10,9 @@ public class UIManager : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
     }
-    public void RestartButton()
+    public void RestartButton() // Oyunumuzu yeniden baslatmasini saglayan metod.
     {
-        SceneManager.LoadScene(0);
-        canvas.enabled = false;
+        SceneManager.LoadScene(0); // .LoadScene() : parantez icerisinde yazili olan index degerine sahip sahneyi yukler.
+        canvas.enabled = false; // Oyun bittigi zaman bizim canvasimiz etkin oluyordu. Bunu devre disi birakiyoruz
     }
 }

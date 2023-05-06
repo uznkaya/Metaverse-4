@@ -10,11 +10,14 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int playerLifeCount = 3;
     Delay delay;
 
+    // UIManager ve Delay scriptlerini cekiyoruz.
     private void Start()
     {
         uiManager = GameObject.Find("UI Manager").GetComponent<UIManager>();
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
     }
+
+    // Karakterimizin canini dusurmek icin olusturdugumuz metod. Calistigi zaman oncelikle cani 1 azalir ve oyun icerisindeki kalplerinden biri silinir. Daha sonra cani kaldi mi kalmadi mi onu kontrol ediyoruz. Eger cani kalmadiysa UIManagerdaki GameOver ekranini aciyoruz ve karakterin yeniden dogmasini engelliyoruz.
     public void Lives()
     {
         playerLifeCount--;

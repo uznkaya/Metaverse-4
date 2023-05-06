@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    Vector2 direction;
-    Vector2 target;
+    Vector2 direction; // Silahin bakicagi yon icin olusturdugumuz degisken
+    Vector2 target; // Hedefin yon degerlerini almak icin olusturdugumuz degisken
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform bulletSpawnPos;
+
+    // Karakterimiz surekli hareket edecegi icin silahimizinda surekli olarak takip etmesi gerekiyor. Bundan dolayi GunDirection metodu Update icerisinde yazili.
     void Update()
     {
-        GunDirection();
-        if (Input.GetMouseButton(0))
+        GunDirection(); 
+
+        // Buradaki if blogu gecici olarak mermimiz dogru yonde gidiyor mu gitmiyor mu buna bakmak icin yaptik. Yinede buradaki if blogu mouse sol tusuna basar isek BulletSpawn ile mermi olusturmamizi sagliyor.
+        if (Input.GetMouseButton(0)) 
         {
             BulletSpawn();
         }
     }
 
+    // Silahin playeri hedeflemesi icin olusturdugumuz metod.
     void GunDirection()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(player != null)
+        // Once oyunda Player tagine sahip bir GameObjesi var mi yok mu onu kontrol ediyoruz ve var ise player degiskenine atiyoruz.
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); 
+
+        if(player != null) // Eger player var ise bizim bu kodlarimiz calisacak.
         {
-            target = player.transform.position;
-            direction = target - (Vector2)transform.position;
-            transform.right = -direction;
+            target = player.transform.position; // Once playerin pozisyonunu aliyoruz cunku silahin hedefi o olacak. 
+            direction = target - (Vector2)transform.position; // Daha sonra burada hedef ile silahimizin arasindaki farki alarak bir nevi merminin gidecegi yon vektorunu aliyoruz.
+            transform.right = -direction; // Nesnenin yonunu ayarladik. Silahin ters tarafindan cikmamasi icin ise - olarak aliyoruz.
         }
     }
 
@@ -33,55 +40,3 @@ public class Gun : MonoBehaviour
         Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation);
     }
 }
-/*
-    
-    elma | muz | armut -> elma 
-                          muz 
-                          armut olarak döndür.
-
-foreach(var item in maturityLevelVehicleInfoCurrent.M1Description)
-{
-    maturityLevelVehicleInfo.M1Description = item.ToString();
-    maturityLevelVehicleInfo.M1Description.Split("|");
-}
-----------------------
-
-maturityLevelVehicleInfo[] array = new maturityLevelVehicleInfo[maturityLevelVehicleInfoCurrent.M1Description.Length];
-for (int i = 0; i < maturityLevelVehicleInfoCurrent.M1Description.Length; i++)
-{
-    array[i] = new maturityLevelVehicleInfo();
-    array[i].M1Description = maturityLevelVehicleInfoCurrent.M1Description[i].ToString();
-    array[i].M1DescriptionParts = array[i].M1Description.Split("|");
-}
--------------------------
-
-foreach (var item in maturityLevelVehicleInfoCurrent.M4Description)
-{
-    var desc4 = item.ToString();
-    var currentdesc4 = desc4.Split('|');
-    List<string> VehicleInfoM4Desc = new List<string>(currentdesc4);
-}
----------------------------
-
-foreach (var item in maturityLevelVehicleInfoCurrent.M4Description)
-{
-	List<string> M4Desc = new List<string>();
-        M4Desc.Add(item.ToString());
-        foreach (var item1 in M4Desc)
-        {
-		List<string> newM4Desc = new List<string>(item1.Split('|'));
-                for(int i = 0; i < newM4Desc.Count; i++)
-                {
-                 maturityLevelVehicleInfo.M4Description = newM4Desc[i];
-                 }
-        }
-}
---------------------------
-
-foreach(var item in maturityLevelVehicleInfoCurrent.M4Description)
-{
-    var data = item.toString();
-    var piecedData = data.Split("|");
-    List<maturit>
-}
-*/

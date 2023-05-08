@@ -15,7 +15,8 @@ public class Fries : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            levelManager.FriesSpawner();
+            levelManager.count++;
+            levelManager.StartDelayFries();    
         }
     }
 }

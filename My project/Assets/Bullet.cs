@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     PlayerHealth playerHealth; // Yine player vurulur ise canini azaltmak icin playerHealth degiskeni
     [SerializeField] ParticleSystem groundParticle;
     [SerializeField] ParticleSystem playerDeathParticle;
+    [SerializeField] ParticleSystem playerHitParticle;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>(); // Bullet'in icindeki rigidBody2D' yi cektik.
@@ -30,6 +31,7 @@ public class Bullet : MonoBehaviour
         {
             Destroy(collision.gameObject); // Karakterimizi yok et. 
             playerHealth.Lives(); // Karakterimizin canini dusurmek icin playerHealth scriptinden Lives metodunu calistir.
+            Instantiate(playerHitParticle, transform.position, Quaternion.identity);
             Instantiate(playerDeathParticle, transform.position, Quaternion.identity);
 
             // Karakterimizin cani >1 ise delayTime true olarak ayarlamistik. Bunun sebebi ise su eger karakterimizin cani 1'den dusuk ise tekrar canlandirmamiza gerek yok. Ondan dolayi burada onu kontrol ediyoruz.

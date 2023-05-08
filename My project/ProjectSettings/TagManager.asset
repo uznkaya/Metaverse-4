@@ -45,3 +45,6 @@ TagManager:
   - name: Turret
     uniqueID: 3656394971
     locked: 0
+  - name: Door
+    uniqueID: 2139272533
+    locked: 0

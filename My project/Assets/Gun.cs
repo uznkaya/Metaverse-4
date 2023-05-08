@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -8,17 +9,19 @@ public class Gun : MonoBehaviour
     Vector2 target; // Hedefin yon degerlerini almak icin olusturdugumuz degisken
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform bulletSpawnPos;
+    [SerializeField] GameObject gunLight;
+    public bool isClose;
+    [SerializeField] private float nextFire;
+    [SerializeField] private float fireRate;
+    [SerializeField] ParticleSystem muzzleEffect;
+
 
     // Karakterimiz surekli hareket edecegi icin silahimizinda surekli olarak takip etmesi gerekiyor. Bundan dolayi GunDirection metodu Update icerisinde yazili.
     void Update()
     {
-        GunDirection(); 
+        GunDirection();
+        GunLight();
 
-        // Buradaki if blogu gecici olarak mermimiz dogru yonde gidiyor mu gitmiyor mu buna bakmak icin yaptik. Yinede buradaki if blogu mouse sol tusuna basar isek BulletSpawn ile mermi olusturmamizi sagliyor.
-        if (Input.GetMouseButton(0)) 
-        {
-            BulletSpawn();
-        }
     }
 
     // Silahin playeri hedeflemesi icin olusturdugumuz metod.
@@ -35,8 +38,32 @@ public class Gun : MonoBehaviour
         }
     }
 
-    void BulletSpawn()
+    void GunLight()
+    {
+        if (isClose)
+        {
+            gunLight.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        else
+        {
+            gunLight.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+    }
+
+    public void BulletSpawn()
     {
         Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation);
+        Instantiate(muzzleEffect, bulletSpawnPos.position, Quaternion.identity);
     }
+
+    public void Fire()
+    {
+        if(Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            BulletSpawn();
+        }
+    }
+
+
 }

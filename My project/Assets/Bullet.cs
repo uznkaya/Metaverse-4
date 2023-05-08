@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     Rigidbody2D rb; // Mermiyi yonlendirmek ve hareketini saglamak icin alinan rigidbody2D degiskeni
     Delay delay; // Eger mermi playeri vurur ise yeniden dogmasini saglamak icin alinan delay degiskeni
     PlayerHealth playerHealth; // Yine player vurulur ise canini azaltmak icin playerHealth degiskeni
+    [SerializeField] ParticleSystem groundParticle;
+    [SerializeField] ParticleSystem playerDeathParticle;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>(); // Bullet'in icindeki rigidBody2D' yi cektik.
@@ -28,12 +30,17 @@ public class Bullet : MonoBehaviour
         {
             Destroy(collision.gameObject); // Karakterimizi yok et. 
             playerHealth.Lives(); // Karakterimizin canini dusurmek icin playerHealth scriptinden Lives metodunu calistir.
+            Instantiate(playerDeathParticle, transform.position, Quaternion.identity);
 
             // Karakterimizin cani >1 ise delayTime true olarak ayarlamistik. Bunun sebebi ise su eger karakterimizin cani 1'den dusuk ise tekrar canlandirmamiza gerek yok. Ondan dolayi burada onu kontrol ediyoruz.
             if (delay.delayTime) 
             {
                 delay.StartDelayTime(); // Karakterimizi yeniden canlandirmamiz saglayan StartDelayTime metodunu calistiriyoruz.
             }
+        }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Instantiate(groundParticle, transform.position, Quaternion.identity);
         }
     }
 }

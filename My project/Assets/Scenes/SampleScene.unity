@@ -1375,6 +1375,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4695631174019233715, guid: 0ae68abc79d3d3d4f80b54eea973a691, type: 3}
   bulletSpawnPos: {fileID: 329866834}
+  gunLight: {fileID: 574811906}
+  isClose: 0
+  nextFire: 0
+  fireRate: 0.2
+  muzzleEffect: {fileID: 5119424790693742008, guid: 1c9ff21667a99734f842d4ed7e74a37e, type: 3}
 --- !u!1 &1488341286
 GameObject:
   m_ObjectHideFlags: 0

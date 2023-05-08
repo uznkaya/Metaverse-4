@@ -179,5 +179,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 10
-  groundParticle: {fileID: 5119424790693742008, guid: 5ee311625b3127e4eac48debae13c010, type: 3}
-  playerDeathParticle: {fileID: 5119424790693742008, guid: 17fffccccbb5b1448b5d1a93f0ab5fd8, type: 3}
+  groundParticle: {fileID: 1429954232896169632, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
+  playerDeathParticle: {fileID: 4553287630450876387, guid: 15483e51212e3d74886ea57291f4639a, type: 3}

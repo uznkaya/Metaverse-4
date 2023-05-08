@@ -1379,7 +1379,7 @@ MonoBehaviour:
   isClose: 0
   nextFire: 0
   fireRate: 0.2
-  muzzleEffect: {fileID: 5119424790693742008, guid: 1c9ff21667a99734f842d4ed7e74a37e, type: 3}
+  muzzleEffect: {fileID: 8194992990867289333, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!1 &1488341286
 GameObject:
   m_ObjectHideFlags: 0

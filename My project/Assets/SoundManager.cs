@@ -11,6 +11,22 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip deadByEnemySound;
     [SerializeField] AudioClip deadByFallSound;
     [SerializeField] AudioClip attackEnemySound;
+    [SerializeField] AudioClip runDoorSound;
+    [SerializeField] AudioClip winSound;
+
+    public static SoundManager instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            Debug.Log("Sahnede fazladan sound manager olamaz");
+        }
+    }
 
     // Sesleri calistabilmek icin bir ses kaynagi lazim bundan dolayi Start metodu icerisinde gerekli olan audioSource'u cektik.
     private void Start()
@@ -53,6 +69,17 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.PlayOneShot(attackEnemySound);
         Debug.Log("Enemy Attacked");
+    }
+
+    public void RunDoorSound()
+    {
+        audioSource.PlayOneShot(runDoorSound);
+        Debug.Log("Run door");
+    }
+    public void WinSound()
+    {
+        audioSource.PlayOneShot(winSound);
+        Debug.Log("Win");
     }
 
 }

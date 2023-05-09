@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject friesPrefab;
     [SerializeField] public int count;
     [SerializeField] GameObject door;
+    [SerializeField] GameObject runText;
     public bool canWin;
     public static bool canMove = true;
 
@@ -51,6 +52,8 @@ public class LevelManager : MonoBehaviour
         {
             canWin = true;
             door.SetActive(true);
+            runText.SetActive(true);
+            SoundManager.instance.RunDoorSound();
         }
 
         yield return new WaitForSeconds(1.5f);

@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinPanelScript : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
-    public void Restart()
+    public void Game()
     {
         SceneManager.LoadScene(1);
-        LevelManager.canMove = true;
     }
     public void Quit()
     {
         Application.Quit();
-        Debug.Log("Quit");
+        Debug.Log("Quited");
     }
 }

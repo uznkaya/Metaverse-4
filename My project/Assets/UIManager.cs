@@ -12,7 +12,11 @@ public class UIManager : MonoBehaviour
     }
     public void RestartButton() // Oyunumuzu yeniden baslatmasini saglayan metod.
     {
-        SceneManager.LoadScene(0); // .LoadScene() : parantez icerisinde yazili olan index degerine sahip sahneyi yukler.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // .LoadScene() : parantez icerisinde yazili olan index degerine sahip sahneyi yukler.
         canvas.enabled = false; // Oyun bittigi zaman bizim canvasimiz etkin oluyordu. Bunu devre disi birakiyoruz
+    }
+    public void MenuButton()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -8,7 +8,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Transform playerSpawnPos;
     [SerializeField] GameObject friesPrefab;
     [SerializeField] public int count;
+    [SerializeField] GameObject door;
     public bool canWin;
+    public static bool canMove = true;
 
     // Awake : Starttan once calisir. Genelde sahne baslatma ve referans alma islemleri icin kullanilir. 
     private void Awake()
@@ -48,6 +50,7 @@ public class LevelManager : MonoBehaviour
         if(count == 5)
         {
             canWin = true;
+            door.SetActive(true);
         }
 
         yield return new WaitForSeconds(1.5f);

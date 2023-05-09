@@ -21,13 +21,17 @@ public class Jump : MonoBehaviour
     }
     void Update()
     {
+        JumpAction();   
+    }
+    void JumpAction()
+    {
         //Eger Jump tusuna (space) basilir ise ve bizim karakterimiz yerde ise kodlari calistir diyoruz. 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown("Jump") && IsGrounded() && LevelManager.canMove)
         {
             // rigidBodymize kuvvet uygulayarak ziplama saglayabiliyoruz. .AddForce(1,2)
             // 1: Karakterimize hangi yonde ne kadar ziplatmak istiyorsak onun degeri,
             // 2:Kuvvet cesidi (2 tane kuvvet cesidi var biri Impulse digeri Force) [Impulse :Tum kuvveti bir anda veriyor][Force :Yavas veriyor kuvveti roketin kalkmasi gibi dusunebiliriz]
-            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse); 
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             soundManager.JumpSound();
         }
         Gravity();

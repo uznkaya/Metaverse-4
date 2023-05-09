@@ -30,9 +30,13 @@ public class Movement : MonoBehaviour
     // Karakterimizin hareket etmesini saglayan metod. Once saga veya sola gitme duruma bagli olarak horizontalMove degiskenine -1 veya +1 atiyoruz. Bunu kontrol etmek icin ise Input.GetAxis("Horizontal") ile sagliyoruz. Horizontal yazmamizin sebebi su Unity bizim icin kolaylik saglamis. A veya sol ok basma durumunda -1, D veya sag ok basma durumunda +1 degeri donduruyor. Bizde bu duruma gore rigidBody2D ye velecotiy hiz vererek hareket etmesini sagliyoruz. Daha sonrasinda ise karakterimiz hangi yone bakmasi gerekiyor ise o yone dogru Flipleme (dondurme) islemini gerceklestiriyoruz.
     void MovementAction()
     {
-        float horizontalMove = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(horizontalMove * moveSpeed, rb.velocity.y);
-        SpriteFlip(horizontalMove);
+        if (LevelManager.canMove)
+        {
+            float horizontalMove = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(horizontalMove * moveSpeed, rb.velocity.y);
+            SpriteFlip(horizontalMove);
+        }
+        
     }
 
     // Karakterimizin sahip oldugu spriteRenderer icerisinde karakterimizi otomatik dondurmemizi saglayan .flipX metodu bulunuyor. Karakterimizin sola dogru gidiyorsa .flipX cevirerek karakterin donmesini sagliyoruz. Eger saga gidiyorsa donmesini iptal ediyoruz. SpriteFlip metodu karakterin hareket ettigi yone dogru bakmasini saglayan metod.

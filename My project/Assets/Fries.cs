@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Fries : MonoBehaviour
 {
     LevelManager levelManager;
+    private int friesValue;
     private void Awake()
     {
         levelManager = GameObject.Find("Level Manager").GetComponent<LevelManager>();
+    }
+    private void Start()
+    {
+        friesValue = Random.Range(1,10);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,7 +22,8 @@ public class Fries : MonoBehaviour
         {
             Destroy(gameObject);
             levelManager.count++;
-            levelManager.StartDelayFries();    
+            ScoreManager.instance.AddPoint(friesValue);
+            levelManager.StartDelayFries();            
         }
     }
 }

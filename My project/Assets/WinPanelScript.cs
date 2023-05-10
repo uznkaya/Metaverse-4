@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WinPanelScript : MonoBehaviour
 {
-    public void Restart()
+    [SerializeField] TextMeshProUGUI scoreText;
+    private void Update()
     {
-        SceneManager.LoadScene(1);
+        scoreText.text = "Your Score : " + ScoreManager.score.ToString();
+    }
+    public void NextLevel()
+    {
+        int scorePoint = ScoreManager.score;
+        scoreText.text = scorePoint.ToString();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         LevelManager.canMove = true;
     }
     public void Quit()

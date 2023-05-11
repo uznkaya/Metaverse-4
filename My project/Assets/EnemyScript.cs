@@ -67,6 +67,7 @@ public class EnemyScript : MonoBehaviour
         {
             soundManager.DeadByEnemySound();
             Destroy(collision.gameObject);
+            Movement.Cancel();
             playerHealth.Lives();
             if (delay.delayTime == true)
             {

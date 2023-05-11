@@ -125,6 +125,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   playerYBoundry: -7
+  dashAmount: 50
+  dashCooldown: 0.5
+  dashTime: 0.2
 --- !u!114 &5936206602149520804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,8 +146,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  gravityScale: 1.8
-  fallGravityScale: 2.8
 --- !u!70 &5936206602149520803
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

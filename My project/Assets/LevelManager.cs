@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
 
     void PlayerSpawner() // Playeri spawnlayan metod.
     {
-        Instantiate(playerPrefab, playerSpawnPos.position, Quaternion.identity); 
+        Instantiate(playerPrefab, playerSpawnPos.position, Quaternion.identity);
     }
     public void RespawnPlayer() // Playeri yeniden spawnlayan metod.
     {

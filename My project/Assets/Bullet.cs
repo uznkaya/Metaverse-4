@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) 
         {
             Destroy(collision.gameObject); // Karakterimizi yok et. 
+            Movement.Cancel();
             playerHealth.Lives(); // Karakterimizin canini dusurmek icin playerHealth scriptinden Lives metodunu calistir.
             Instantiate(playerHitParticle, transform.position, Quaternion.identity);
             Instantiate(playerDeathParticle, transform.position, Quaternion.identity);

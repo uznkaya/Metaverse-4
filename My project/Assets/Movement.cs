@@ -11,8 +11,10 @@ public class Movement : MonoBehaviour
     SoundManager soundManager;
     Delay delay;
     PlayerHealth playerHealth;
+    TrailRenderer tr;
     private float horizontalMove;
 
+    public static bool dashed;
     public static bool canDash = true;
     public static bool isDashing = false;
     [SerializeField] float dashAmount;
@@ -21,6 +23,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        tr = GetComponent<TrailRenderer>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
@@ -97,12 +100,16 @@ public class Movement : MonoBehaviour
         isDashing = true;
         rb.gravityScale = 0f;
         Jump.fallGravityScale = 0f;
+        tr.emitting = true;
         rb.velocity = new Vector2(dashAmount * horizontalMove,0f);
         yield return new WaitForSeconds(dashTime);
         rb.gravityScale = 1f;
         Jump.fallGravityScale = 15f;
+        tr.emitting = false;
         isDashing = false;
+        dashed = true;
         yield return new WaitForSeconds(dashCooldown);
+        dashed = false;
         Debug.Log("Can dash");
         canDash = true;
     }
@@ -111,6 +118,7 @@ public class Movement : MonoBehaviour
     {
         canDash = true;
         isDashing = false;
+        dashed = false;
         Jump.fallGravityScale = 15f;
     }
 }

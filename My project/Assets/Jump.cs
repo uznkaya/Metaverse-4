@@ -12,6 +12,10 @@ public class Jump : MonoBehaviour
     public static float gravityScale = 1f;
     public static float fallGravityScale = 15f;
     private SoundManager soundManager;
+    [SerializeField] float startJumpTime;
+    float jumpTime;
+    bool isJumping;
+    bool doubleJump;
 
     // Karakterimizin ziplamasini saglamak icin rigidBody2D, ziplama sesi cikarabilmesi icin ise SoundManager'i cekiyoruz.
     void Start()
@@ -36,7 +40,31 @@ public class Jump : MonoBehaviour
             // 1: Karakterimize hangi yonde ne kadar ziplatmak istiyorsak onun degeri,
             // 2:Kuvvet cesidi (2 tane kuvvet cesidi var biri Impulse digeri Force) [Impulse :Tum kuvveti bir anda veriyor][Force :Yavas veriyor kuvveti roketin kalkmasi gibi dusunebiliriz]
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            isJumping = true;
+            doubleJump = true;
             soundManager.JumpSound();
+            jumpTime = startJumpTime;
+        }
+        else if(Input.GetButtonDown("Jump")&& doubleJump)
+        {
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            doubleJump = false;
+        }
+        if(Input.GetButton("Jump")&& isJumping)
+        {
+            if(jumpTime > 0)
+            {
+                rb.AddForce(Vector2.up, ForceMode2D.Force);
+                jumpTime -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
         }
         Gravity();
     }

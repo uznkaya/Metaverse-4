@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,6 +11,18 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public int count;
     [SerializeField] GameObject door;
     [SerializeField] GameObject runText;
+
+    [Header("Knife Spawner")]
+    [SerializeField] GameObject knifePrefab;
+    [SerializeField] Vector2 spawnValues;
+    [SerializeField] float startSpawn;
+    [SerializeField] float minSpawn;
+    [SerializeField] float maxSpawn;
+    [SerializeField] float startWait;
+    public static bool knifeStop;
+    private float xSpawn = 10f;
+
+    [Header("Bool")]
     public bool canWin;
     public static bool canMove = true;
 
@@ -21,6 +34,12 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         StartDelayFries();
+        StartCoroutine(CreateKnife());
+    }
+
+    private void Update()
+    {
+        startSpawn = Random.Range(minSpawn, maxSpawn);    
     }
 
     // Instantiate : GameObject olusturmamizi saglar. Bizden 3 adet parametre ister. Bunlar sirasiyla olusturmak istedigimiz nesne, nesnenin olusturacagi pozisyon ve rotasyonu (yonu)
@@ -53,6 +72,7 @@ public class LevelManager : MonoBehaviour
             canWin = true;
             door.SetActive(true);
             runText.SetActive(true);
+            knifeStop = true;
             SoundManager.instance.RunDoorSound();
         }
 
@@ -61,6 +81,19 @@ public class LevelManager : MonoBehaviour
         if(count < 5)
         {
             FriesSpawner();
+        }
+    }
+
+    public IEnumerator CreateKnife()
+    {
+        yield return new WaitForSeconds(startWait);
+
+        while (!knifeStop)
+        {
+            Vector2 spawnPos = new Vector2(xSpawn,Random.Range(-spawnValues.y,spawnValues.y));
+            Instantiate(knifePrefab, spawnPos, Quaternion.identity);
+            SoundManager.instance.KnifeSound(); // buraya fries pop sesini verebilirsin. 
+            yield return new WaitForSeconds(startSpawn);
         }
     }
 }

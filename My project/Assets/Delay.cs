@@ -7,6 +7,22 @@ public class Delay : MonoBehaviour
     LevelManager levelManager; // LevelManager scriptine ulasmak icin degisken 
     [SerializeField] float delayTimer; // Karakterimizin dogmasi icin gerekli sureyi ayarlamak icin degisken
     [SerializeField] public bool delayTime = true; // Karakterimizin cani >1 mi degil mi onu kontrol etmek icin bool tipinde degisken 
+
+    #region Singleton
+    public static Delay instance;
+    private void Awake()
+    {
+       if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+    #endregion
     private void Start()
     {
         levelManager = GetComponent<LevelManager>(); // Burada GameObject.Find kullanmadik cunku Delay scriptimiz bizi halihazir LevelManager icerisinde oldugu icin direkt. GetComponent yaparak scripti cektik.

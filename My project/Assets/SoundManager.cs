@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    // Indekleme olayi ile toparla burayi
     // Ses Kaynaklarini atamak icin gerekli degiskenleri olusturduk.
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip jumpSound;
@@ -13,7 +14,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip attackEnemySound;
     [SerializeField] AudioClip runDoorSound;
     [SerializeField] AudioClip winSound;
+    [SerializeField] AudioClip knifeSound;
 
+    #region Singleton
     public static SoundManager instance;
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class SoundManager : MonoBehaviour
             Debug.Log("Sahnede fazladan sound manager olamaz");
         }
     }
+    #endregion
 
     // Sesleri calistabilmek icin bir ses kaynagi lazim bundan dolayi Start metodu icerisinde gerekli olan audioSource'u cektik.
     private void Start()
@@ -80,6 +84,11 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.PlayOneShot(winSound);
         Debug.Log("Win");
+    }
+    public void KnifeSound()
+    {
+        audioSource.PlayOneShot(knifeSound);
+        Debug.Log("Knife");
     }
 
 }

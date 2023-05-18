@@ -24,11 +24,13 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // .LoadScene() : parantez icerisinde yazili olan index degerine sahip sahneyi yukler.
         canvas.enabled = false; // Oyun bittigi zaman bizim canvasimiz etkin oluyordu. Bunu devre disi birakiyoruz
+        LevelManager.knifeStop = false;
         ScoreManager.score = 0;
     }
     public void MenuButton()
     {
         SceneManager.LoadScene(0);
         ScoreManager.score = 0;
+        LevelManager.knifeStop = false;
     }
 }

@@ -1926,6 +1926,13 @@ MonoBehaviour:
   count: 0
   door: {fileID: 2128408632}
   runText: {fileID: 998554920}
+  knifePrefab: {fileID: 6970061564586039929, guid: 429c6559aee1d744ea597c357a201e36, type: 3}
+  spawnValues: {x: 10, y: 4}
+  startSpawn: 0
+  minSpawn: 0.5
+  maxSpawn: 3
+  startWait: 2
+  knifeStop: 0
   canWin: 0
 --- !u!4 &846855210
 Transform:
@@ -5060,6 +5067,7 @@ MonoBehaviour:
   attackEnemySound: {fileID: 8300000, guid: 5d2300dbceb20a14eb7dfb5d40e6a293, type: 3}
   runDoorSound: {fileID: 8300000, guid: 75d604da790b56c46a6f874ee18ed27c, type: 3}
   winSound: {fileID: 8300000, guid: 04c1154c1cd6d914bac70dc39ac33d32, type: 3}
+  knifeSound: {fileID: 8300000, guid: 2f80ee1f32c52924191a5be27b909856, type: 3}
 --- !u!4 &1925588988
 Transform:
   m_ObjectHideFlags: 0

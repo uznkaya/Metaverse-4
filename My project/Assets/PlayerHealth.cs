@@ -10,6 +10,23 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] int playerLifeCount = 3;
     Delay delay;
 
+    #region Singleton
+    public static PlayerHealth instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
+    #endregion
+
+
     // UIManager ve Delay scriptlerini cekiyoruz.
     private void Start()
     {
@@ -26,6 +43,7 @@ public class PlayerHealth : MonoBehaviour
         if (playerLifeCount < 1)
         {
             uiManager.GetComponent<Canvas>().enabled = true;
+            LevelManager.knifeStop = true;
             delay.delayTime = false;
         }
     }

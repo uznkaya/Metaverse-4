@@ -22,6 +22,11 @@ public class LevelManager : MonoBehaviour
     public static bool knifeStop;
     private float xSpawn = 10f;
 
+    [Header("Mode Speed")]
+    [SerializeField] float easySpawn;
+    [SerializeField] float normalSpawn;
+    [SerializeField] float hardSpawn;
+
     [Header("Bool")]
     public bool canWin;
     public static bool canMove = true;
@@ -32,9 +37,11 @@ public class LevelManager : MonoBehaviour
         PlayerSpawner(); // Playerimizi olusturduk.
     }
     private void Start()
-    {
+    {   
         StartDelayFries();
         StartCoroutine(CreateKnife());
+        maxSpawn =  HardenedScript.instance.HardenedLevel(maxSpawn, easySpawn, normalSpawn, hardSpawn);
+        canMove = true;
     }
 
     private void Update()

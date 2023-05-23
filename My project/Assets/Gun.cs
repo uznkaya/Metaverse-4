@@ -15,6 +15,14 @@ public class Gun : MonoBehaviour
     [SerializeField] private float fireRate;
     [SerializeField] ParticleSystem muzzleEffect;
 
+    [Header("Mode Speed")]
+    [SerializeField] float easyRate;
+    [SerializeField] float normalRate;
+    [SerializeField] float hardRate;
+    private void Start()
+    {
+        fireRate = HardenedScript.instance.HardenedLevel(fireRate,easyRate,normalRate,hardRate);
+    }
 
     // Karakterimiz surekli hareket edecegi icin silahimizinda surekli olarak takip etmesi gerekiyor. Bundan dolayi GunDirection metodu Update icerisinde yazili.
     void Update()

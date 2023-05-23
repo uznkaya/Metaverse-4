@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6970061564586039933}
   m_Layer: 0
   m_Name: knife
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   destroyLimit: -10
   easySpeed: 3
   normalSpeed: 5
-  hardSpeed: 8
+  hardSpeed: 10
 --- !u!50 &6970061564586039933
 Rigidbody2D:
   serializedVersion: 4

@@ -18,7 +18,7 @@ public class Knife : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        HardenedLevel();
+        moveSpeed = HardenedScript.instance.HardenedLevel(moveSpeed, easySpeed, normalSpeed, hardSpeed);
     }
     private void Update()
     {
@@ -32,32 +32,21 @@ public class Knife : MonoBehaviour
         transform.Rotate(-transform.right * turnSpeed);
         rb.velocity = Vector2.left * moveSpeed;
     }
-    private void HardenedLevel()
-    {
-        if(PlayerPrefs.HasKey("Easy Mode"))
-        {
-            moveSpeed -= easySpeed;
-        }
-        else if(PlayerPrefs.HasKey("Normal Mode"))
-        {
-            moveSpeed = normalSpeed;
-        }
-        else if(PlayerPrefs.HasKey("Hard Mode"))
-        {
-            moveSpeed += hardSpeed;
-        }
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             SoundManager.instance.KnifeSound();
             Instantiate(particle, collision.transform.position, Quaternion.identity);
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject);      
             PlayerHealth.instance.Lives();
             Movement.Cancel();
-            Delay.instance.StartDelayTime();
+            if (Delay.instance.delayTime)
+            {
+                Delay.instance.StartDelayTime();
+            }
             Destroy(gameObject);
+
         }
     }
 }

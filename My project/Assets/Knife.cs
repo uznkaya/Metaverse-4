@@ -18,6 +18,7 @@ public class Knife : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        HardenedLevel();
     }
     private void Update()
     {

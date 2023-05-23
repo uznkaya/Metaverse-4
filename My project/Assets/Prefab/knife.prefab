@@ -129,6 +129,9 @@ MonoBehaviour:
   moveSpeed: 5
   particle: {fileID: 1429954232896169632, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
   destroyLimit: -10
+  easySpeed: 3
+  normalSpeed: 5
+  hardSpeed: 8
 --- !u!50 &6970061564586039933
 Rigidbody2D:
   serializedVersion: 4

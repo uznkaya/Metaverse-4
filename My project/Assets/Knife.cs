@@ -9,6 +9,11 @@ public class Knife : MonoBehaviour
     [SerializeField] ParticleSystem particle;
     [SerializeField] float destroyLimit;
 
+    [Header("Mode Speed")]
+    [SerializeField] float easySpeed;
+    [SerializeField] float normalSpeed;
+    [SerializeField] float hardSpeed;
+
     private Rigidbody2D rb;
     private void Start()
     {
@@ -25,6 +30,21 @@ public class Knife : MonoBehaviour
     {
         transform.Rotate(-transform.right * turnSpeed);
         rb.velocity = Vector2.left * moveSpeed;
+    }
+    private void HardenedLevel()
+    {
+        if(PlayerPrefs.HasKey("Easy Mode"))
+        {
+            moveSpeed -= easySpeed;
+        }
+        else if(PlayerPrefs.HasKey("Normal Mode"))
+        {
+            moveSpeed = normalSpeed;
+        }
+        else if(PlayerPrefs.HasKey("Hard Mode"))
+        {
+            moveSpeed += hardSpeed;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

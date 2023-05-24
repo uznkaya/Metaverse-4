@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public int count;
     [SerializeField] GameObject door;
     [SerializeField] GameObject runText;
+    public static int countForWin;
 
     [Header("Knife Spawner")]
     [SerializeField] GameObject knifePrefab;
@@ -74,18 +75,19 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator DelayFries()
     {
-        if(count == 5)
+        if(count == countForWin)
         {
             canWin = true;
             door.SetActive(true);
             runText.SetActive(true);
             knifeStop = true;
-            SoundManager.instance.RunDoorSound();
+            SoundManager.instance.PlayWithIndex(12);
+
         }
 
         yield return new WaitForSeconds(1.5f);
 
-        if(count < 5)
+        if(count < countForWin)
         {
             FriesSpawner();
         }
@@ -99,7 +101,7 @@ public class LevelManager : MonoBehaviour
         {
             Vector2 spawnPos = new Vector2(xSpawn,Random.Range(-spawnValues.y,spawnValues.y));
             Instantiate(knifePrefab, spawnPos, Quaternion.identity);
-            SoundManager.instance.KnifeSound(); // buraya fries pop sesini verebilirsin. 
+            SoundManager.instance.PlayWithIndex(7);
             yield return new WaitForSeconds(startSpawn);
         }
     }

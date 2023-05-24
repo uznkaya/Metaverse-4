@@ -8,7 +8,6 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public float moveSpeed;
     [SerializeField] float playerYBoundry;
-    SoundManager soundManager;
     Delay delay;
     PlayerHealth playerHealth;
     TrailRenderer tr;
@@ -23,10 +22,10 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        Cancel();
         tr = GetComponent<TrailRenderer>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
         playerHealth = GameObject.Find("Level Manager").GetComponent<PlayerHealth>();
     }
@@ -74,7 +73,7 @@ public class Movement : MonoBehaviour
     {
         if (transform.position.y < playerYBoundry)
         {
-            soundManager.DeadByFallSound();
+            SoundManager.instance.PlayWithIndex(4);
             Destroy(gameObject);
             Movement.Cancel();
             playerHealth.Lives();
@@ -90,12 +89,12 @@ public class Movement : MonoBehaviour
         if (canDash && Input.GetKeyDown(KeyCode.LeftShift) && horizontalMove != 0)
         {
             StartCoroutine(Dash());
+            SoundManager.instance.PlayWithIndex(2);
         }
     }
 
     IEnumerator Dash()
     {
-        Debug.Log("Dashing");
         canDash = false;
         isDashing = true;
         rb.gravityScale = 0f;
@@ -110,7 +109,6 @@ public class Movement : MonoBehaviour
         dashed = true;
         yield return new WaitForSeconds(dashCooldown);
         dashed = false;
-        Debug.Log("Can dash");
         canDash = true;
     }
 

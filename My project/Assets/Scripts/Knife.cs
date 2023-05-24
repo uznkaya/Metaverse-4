@@ -13,6 +13,7 @@ public class Knife : MonoBehaviour
     [SerializeField] float easySpeed;
     [SerializeField] float normalSpeed;
     [SerializeField] float hardSpeed;
+    [SerializeField] GameObject player;
 
     private Rigidbody2D rb;
     private void Start()
@@ -26,6 +27,11 @@ public class Knife : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        player = GameObject.FindGameObjectWithTag("Player");
+        if(player == null)
+        {
+            Destroy(gameObject);
+        }
     }
     private void FixedUpdate()
     {
@@ -36,7 +42,7 @@ public class Knife : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SoundManager.instance.KnifeSound();
+            SoundManager.instance.PlayWithIndex(10);
             Instantiate(particle, collision.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);      
             PlayerHealth.instance.Lives();

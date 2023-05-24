@@ -13,6 +13,7 @@ public class WinPanelScript : MonoBehaviour
     }
     public void NextLevel()
     {
+        LevelManager.countForWin++;
         int scorePoint = ScoreManager.score;
         scoreText.text = scorePoint.ToString();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -22,6 +23,5 @@ public class WinPanelScript : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
-        Debug.Log("Quit");
     }
 }

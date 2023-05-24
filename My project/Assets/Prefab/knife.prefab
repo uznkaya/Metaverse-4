@@ -132,6 +132,7 @@ MonoBehaviour:
   easySpeed: 3
   normalSpeed: 5
   hardSpeed: 10
+  player: {fileID: 5936206602149520810, guid: 6131dec0d24bf474f9da46dec6e9aab5, type: 3}
 --- !u!50 &6970061564586039933
 Rigidbody2D:
   serializedVersion: 4

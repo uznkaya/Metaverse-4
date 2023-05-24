@@ -11,7 +11,6 @@ public class Jump : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
     public static float gravityScale = 1f;
     public static float fallGravityScale = 15f;
-    private SoundManager soundManager;
     [SerializeField] float startJumpTime;
     float jumpTime;
     bool isJumping;
@@ -21,7 +20,6 @@ public class Jump : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
     }
     void Update()
     {
@@ -42,7 +40,7 @@ public class Jump : MonoBehaviour
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             isJumping = true;
             doubleJump = true;
-            soundManager.JumpSound();
+            SoundManager.instance.PlayWithIndex(9);
             jumpTime = startJumpTime;
         }
         else if(Input.GetButtonDown("Jump")&& doubleJump)

@@ -67,7 +67,7 @@ public class Jump : MonoBehaviour
         {
             isJumping = false;
         }
-        if (Mathf.Approximately(rb.velocity.y, 0))
+        if (Mathf.Approximately(rb.velocity.y, 0) && anim.GetBool("Jump"))
         {
             anim.SetBool("Jump", false);
         }

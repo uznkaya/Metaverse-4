@@ -19,6 +19,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float dashAmount;
     [SerializeField] float dashCooldown;
     [SerializeField] float dashTime;
+    [SerializeField] Animator anim;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class Movement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
         playerHealth = GameObject.Find("Level Manager").GetComponent<PlayerHealth>();
+        anim = GetComponent<Animator>();
     }
 
     // Surekli olarak karakterimiz hareket edecegi icin veya ne zaman asagiya duserek olecegini bilemedigimiz icin bu iki metodu Update icerisinde calistiriyoruz.
@@ -51,6 +53,7 @@ public class Movement : MonoBehaviour
             horizontalMove = Input.GetAxis("Horizontal");
             rb.velocity = new Vector2(horizontalMove * moveSpeed, rb.velocity.y);
             SpriteFlip(horizontalMove);
+            anim.SetFloat("Move", Mathf.Abs(horizontalMove));
         }
 
     }

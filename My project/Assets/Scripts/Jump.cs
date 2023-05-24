@@ -15,11 +15,13 @@ public class Jump : MonoBehaviour
     float jumpTime;
     bool isJumping;
     bool doubleJump;
+    [SerializeField] Animator anim;
 
     // Karakterimizin ziplamasini saglamak icin rigidBody2D, ziplama sesi cikarabilmesi icin ise SoundManager'i cekiyoruz.
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -42,6 +44,7 @@ public class Jump : MonoBehaviour
             doubleJump = true;
             SoundManager.instance.PlayWithIndex(9);
             jumpTime = startJumpTime;
+            anim.SetBool("Jump", true);
         }
         else if(Input.GetButtonDown("Jump")&& doubleJump)
         {
@@ -63,6 +66,10 @@ public class Jump : MonoBehaviour
         if (Input.GetButtonUp("Jump"))
         {
             isJumping = false;
+        }
+        if (Mathf.Approximately(rb.velocity.y, 0))
+        {
+            anim.SetBool("Jump", false);
         }
         Gravity();
     }

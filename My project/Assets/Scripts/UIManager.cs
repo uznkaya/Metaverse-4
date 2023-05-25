@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
         canvas.enabled = false; // Oyun bittigi zaman bizim canvasimiz etkin oluyordu. Bunu devre disi birakiyoruz
         LevelManager.knifeStop = false;
         ScoreManager.score = 0;
+        LevelManager.level = 0;
 
         if (PlayerPrefs.HasKey("Easy Mode"))
         {

@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject door;
     [SerializeField] GameObject runText;
     public static int countForWin;
+    public static int level;
 
     [Header("Knife Spawner")]
     [SerializeField] GameObject knifePrefab;
@@ -35,14 +36,16 @@ public class LevelManager : MonoBehaviour
     // Awake : Starttan once calisir. Genelde sahne baslatma ve referans alma islemleri icin kullanilir. 
     private void Awake()
     {
-        PlayerSpawner(); // Playerimizi olusturduk.
+        SpawnPlayer(); // Playerimizi olusturduk.
     }
     private void Start()
-    {   
+    {
+        level++;
         StartDelayFries();
         StartCoroutine(CreateKnife());
         maxSpawn =  HardenedScript.instance.HardenedLevel(maxSpawn, easySpawn, normalSpawn, hardSpawn);
         canMove = true;
+        knifeStop = false;
     }
 
     private void Update()
@@ -104,5 +107,15 @@ public class LevelManager : MonoBehaviour
             SoundManager.instance.PlayWithIndex(7);
             yield return new WaitForSeconds(startSpawn);
         }
+    }
+    void SpawnPlayer()
+    {
+        StartCoroutine(PlayerSpawnerWait());
+    }
+
+    IEnumerator PlayerSpawnerWait()
+    {
+        yield return new WaitForSeconds(1);
+        PlayerSpawner();
     }
 }

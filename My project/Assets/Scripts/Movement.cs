@@ -11,11 +11,13 @@ public class Movement : MonoBehaviour
     Delay delay;
     PlayerHealth playerHealth;
     TrailRenderer tr;
+    Jump jump;
     private float horizontalMove;
 
     public static bool dashed;
     public static bool canDash = true;
     public static bool isDashing = false;
+    public static bool blocking = false;
     [SerializeField] float dashAmount;
     [SerializeField] float dashCooldown;
     [SerializeField] float dashTime;
@@ -30,6 +32,7 @@ public class Movement : MonoBehaviour
         delay = GameObject.Find("Level Manager").GetComponent<Delay>();
         playerHealth = GameObject.Find("Level Manager").GetComponent<PlayerHealth>();
         anim = GetComponent<Animator>();
+        jump = GetComponent<Jump>();
     }
 
     // Surekli olarak karakterimiz hareket edecegi icin veya ne zaman asagiya duserek olecegini bilemedigimiz icin bu iki metodu Update icerisinde calistiriyoruz.
@@ -38,6 +41,7 @@ public class Movement : MonoBehaviour
         MovementAction();
         PlayerDestroyer();
         StartDash();
+        Block();
     }
 
     // Karakterimizin hareket etmesini saglayan metod. Once saga veya sola gitme duruma bagli olarak horizontalMove degiskenine -1 veya +1 atiyoruz. Bunu kontrol etmek icin ise Input.GetAxis("Horizontal") ile sagliyoruz. Horizontal yazmamizin sebebi su Unity bizim icin kolaylik saglamis. A veya sol ok basma durumunda -1, D veya sag ok basma durumunda +1 degeri donduruyor. Bizde bu duruma gore rigidBody2D ye velecotiy hiz vererek hareket etmesini sagliyoruz. Daha sonrasinda ise karakterimiz hangi yone bakmasi gerekiyor ise o yone dogru Flipleme (dondurme) islemini gerceklestiriyoruz.
@@ -54,6 +58,10 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(horizontalMove * moveSpeed, rb.velocity.y);
             SpriteFlip(horizontalMove);
             anim.SetFloat("Move", Mathf.Abs(horizontalMove));
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
     }
@@ -132,6 +140,22 @@ public class Movement : MonoBehaviour
         if (Delay.instance.delayTime)
         {
             Delay.instance.StartDelayTime();
+        }
+    }
+    public void Block()
+    {
+        if (Input.GetMouseButton(0)&& jump.IsGrounded())
+        {
+            anim.SetBool("Shield", true);
+            blocking = true;
+            rb.velocity = Vector2.zero;
+            LevelManager.canMove = false;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            anim.SetBool("Shield", false);
+            blocking = false;
+            LevelManager.canMove = true;
         }
     }
 }

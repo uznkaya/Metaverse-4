@@ -36,19 +36,11 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject); // Eger mermi bir yere carpar ise yok et diyoruz.
 
         // Buradaki if blogu su ise yariyor bizim gonderdigimiz mermiler bizim player karakterimize de carpabilir. Bundan dolayi diyoruz ki eger Mermi'nin carptigi seyin Tagi "player" ise sunlari gerceklestir.
-        if (collision.gameObject.CompareTag("Player")) 
+        if (collision.gameObject.CompareTag("Player")&&LevelManager.canMove) 
         {
-            Destroy(collision.gameObject); // Karakterimizi yok et. 
-            Movement.Cancel();
-            playerHealth.Lives(); // Karakterimizin canini dusurmek icin playerHealth scriptinden Lives metodunu calistir.
-            Instantiate(playerHitParticle, transform.position, Quaternion.identity);
-            Instantiate(playerDeathParticle, transform.position, Quaternion.identity);
-
-            // Karakterimizin cani >1 ise delayTime true olarak ayarlamistik. Bunun sebebi ise su eger karakterimizin cani 1'den dusuk ise tekrar canlandirmamiza gerek yok. Ondan dolayi burada onu kontrol ediyoruz.
-            if (delay.delayTime) 
-            {
-                delay.StartDelayTime(); // Karakterimizi yeniden canlandirmamiz saglayan StartDelayTime metodunu calistiriyoruz.
-            }
+            Animator animator = collision.gameObject.GetComponent<Animator>();
+            animator.SetTrigger("Die");
+            LevelManager.canMove = false;
         }
         if (collision.gameObject.CompareTag("Ground"))
         {

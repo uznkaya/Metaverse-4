@@ -121,5 +121,17 @@ public class Movement : MonoBehaviour
         isDashing = false;
         dashed = false;
         Jump.fallGravityScale = 15f;
+        LevelManager.canMove = true;
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+        PlayerHealth.instance.Lives();
+        Cancel();
+        if (Delay.instance.delayTime)
+        {
+            Delay.instance.StartDelayTime();
+        }
     }
 }

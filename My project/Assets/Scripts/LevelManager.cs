@@ -8,11 +8,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform playerSpawnPos;
     [SerializeField] GameObject friesPrefab;
-    [SerializeField] public int count;
+    public int count;
     [SerializeField] GameObject door;
     [SerializeField] GameObject runText;
-    public static int countForWin;
-    public static int level;
 
     [Header("Knife Spawner")]
     [SerializeField] GameObject knifePrefab;
@@ -33,14 +31,24 @@ public class LevelManager : MonoBehaviour
     public bool canWin;
     public static bool canMove = true;
 
-    // Awake : Starttan once calisir. Genelde sahne baslatma ve referans alma islemleri icin kullanilir. 
+    #region Singleton
+    public static LevelManager instance;
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         SpawnPlayer(); // Playerimizi olusturduk.
     }
+    #endregion
     private void Start()
     {
-        level++;
+        
         StartDelayFries();
         StartCoroutine(CreateKnife());
         maxSpawn =  HardenedScript.instance.HardenedLevel(maxSpawn, easySpawn, normalSpawn, hardSpawn);
@@ -78,7 +86,7 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator DelayFries()
     {
-        if(count == countForWin)
+        if(count == CountManager.instance.countForWin)
         {
             canWin = true;
             door.SetActive(true);
@@ -90,7 +98,7 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        if(count < countForWin)
+        if(count < CountManager.instance.countForWin)
         {
             FriesSpawner();
         }

@@ -28,7 +28,7 @@ public class Knife : MonoBehaviour
             Destroy(gameObject);
         }
         player = GameObject.FindGameObjectWithTag("Player");
-        if(player == null)
+        if(player == null || CountManager.instance.EndCount())
         {
             Destroy(gameObject);
         }
@@ -40,19 +40,14 @@ public class Knife : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && LevelManager.canMove)
         {
             SoundManager.instance.PlayWithIndex(10);
             Instantiate(particle, collision.transform.position, Quaternion.identity);
-            Destroy(collision.gameObject);      
-            PlayerHealth.instance.Lives();
-            Movement.Cancel();
-            if (Delay.instance.delayTime)
-            {
-                Delay.instance.StartDelayTime();
-            }
+            Animator anim = collision.gameObject.GetComponent<Animator>();
+            anim.SetTrigger("Die");
+            LevelManager.canMove = false;
             Destroy(gameObject);
-
         }
     }
 }

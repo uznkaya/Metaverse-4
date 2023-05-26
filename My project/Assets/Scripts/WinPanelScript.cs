@@ -13,7 +13,8 @@ public class WinPanelScript : MonoBehaviour
     }
     public void NextLevel()
     {
-        LevelManager.countForWin++;
+        CountManager.instance.countForWin++;
+        CountManager.instance.level++;
         int scorePoint = ScoreManager.score;
         scoreText.text = scorePoint.ToString();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

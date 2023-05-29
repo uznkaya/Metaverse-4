@@ -7,6 +7,7 @@ public class Knife : MonoBehaviour
     [SerializeField] float turnSpeed;
     [SerializeField] float moveSpeed;
     [SerializeField] ParticleSystem particle;
+    [SerializeField] ParticleSystem blockingParticle;
     [SerializeField] float destroyLimit;
 
     [Header("Mode Speed")]
@@ -47,7 +48,7 @@ public class Knife : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && LevelManager.canMove && !Movement.blocking)
         {
             SoundManager.instance.PlayWithIndex(10);
-            Instantiate(particle, collision.transform.position, Quaternion.identity);
+            Instantiate(particle, collision.gameObject.transform.position, Quaternion.identity);
             Animator anim = collision.gameObject.GetComponent<Animator>();
             anim.SetTrigger("Die");
             LevelManager.canMove = false;
@@ -55,7 +56,7 @@ public class Knife : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Player") && Movement.blocking)
         {
-            Instantiate(particle, collision.transform.position, Quaternion.identity);
+            Instantiate(blockingParticle, gameObject.transform.position, Quaternion.identity);
         }
     }
 }

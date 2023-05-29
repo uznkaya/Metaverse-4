@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
     public static bool canDash = true;
     public static bool isDashing = false;
     public static bool blocking = false;
+    public static bool died = false;
     [SerializeField] float dashAmount;
     [SerializeField] float dashCooldown;
     [SerializeField] float dashTime;
@@ -111,7 +112,7 @@ public class Movement : MonoBehaviour
         rb.gravityScale = 0f;
         Jump.fallGravityScale = 0f;
         tr.emitting = true;
-        rb.velocity = new Vector2(dashAmount * horizontalMove,0f);
+        rb.velocity = new Vector2(dashAmount * horizontalMove, 0f);
         yield return new WaitForSeconds(dashTime);
         rb.gravityScale = 1f;
         Jump.fallGravityScale = 15f;
@@ -130,6 +131,7 @@ public class Movement : MonoBehaviour
         dashed = false;
         Jump.fallGravityScale = 15f;
         LevelManager.canMove = true;
+        died = false;
     }
 
     public void Die()
@@ -144,18 +146,23 @@ public class Movement : MonoBehaviour
     }
     public void Block()
     {
-        if (Input.GetMouseButton(0)&& jump.IsGrounded())
+        if (Input.GetMouseButton(0) && jump.IsGrounded() && !died)
         {
             anim.SetBool("Shield", true);
             blocking = true;
             rb.velocity = Vector2.zero;
             LevelManager.canMove = false;
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && !died)
         {
             anim.SetBool("Shield", false);
             blocking = false;
             LevelManager.canMove = true;
         }
+    }
+
+    public void Died()
+    {
+        died = true;
     }
 }

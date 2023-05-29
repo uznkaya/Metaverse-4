@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] ParticleSystem groundParticle;
     [SerializeField] ParticleSystem playerDeathParticle;
     [SerializeField] ParticleSystem playerHitParticle;
+    [SerializeField] ParticleSystem playerBlockParticle;
     [SerializeField] GameObject player;
     private void Awake()
     {
@@ -36,11 +37,14 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject); // Eger mermi bir yere carpar ise yok et diyoruz.
 
         // Buradaki if blogu su ise yariyor bizim gonderdigimiz mermiler bizim player karakterimize de carpabilir. Bundan dolayi diyoruz ki eger Mermi'nin carptigi seyin Tagi "player" ise sunlari gerceklestir.
-        if (collision.gameObject.CompareTag("Player")&&LevelManager.canMove) 
+        if (collision.gameObject.CompareTag("Player")&&LevelManager.canMove && !Movement.blocking) 
         {
             Animator animator = collision.gameObject.GetComponent<Animator>();
             animator.SetTrigger("Die");
             LevelManager.canMove = false;
+        }else if (Movement.blocking)
+        {
+            Instantiate(playerBlockParticle, transform.position, Quaternion.identity);
         }
         if (collision.gameObject.CompareTag("Ground"))
         {
